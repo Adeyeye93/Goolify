@@ -8,24 +8,22 @@ defmodule Goolify.Account.UserNotifier do
     email =
       new()
       |> to(recipient)
-      |> from({"Goolify", "adeyeyeseyi2@gmail.com"})
+      |> from({"Zify", "adeyeyeseyi2@gmail.com"})
       |> subject(subject)
       |> text_body(body)
 
-     case Mailer.deliver(email) do
-      {:ok, _metadata} ->
-        {:ok, email}
-
-      {:error, reason} ->
-        {:error, reason}
+    with {:ok, _metadata} <- Mailer.deliver(email, access_token: "ya29.a0AXooCgtTnPwMdm73zcIv1lCyFvHtpx0iN8ql1q-BhHdrx179ADQ7dMSRQ3QrSuI0ROU-sgQr0N0rSbjZkWnQqWW8qp9qHMBAniqRJTEaTtorkv16BvFJsNaAwuDUmIGY33M4aRia02RarWUg8zo-vsk3OlkPfrWgo1qPaCgYKAa0SARMSFQHGX2MiMjW8heMhpGe9L59XQ5JQcg0171"
+) do
+      {:ok, email}
     end
+
+
   end
 
   @doc """
   Deliver instructions to confirm account.
   """
   def deliver_confirmation_instructions(user, url) do
-    IO.puts "Email as been sent" <> user.email
     deliver(user.email, "Confirmation instructions", """
 
     ==============================

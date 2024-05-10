@@ -5,6 +5,7 @@ defmodule Goolify.Account.User do
   schema "users" do
     field :email, :string
     field :username, :string
+    field :is_secured?, :boolean, default: false
     field :password, :string, virtual: true, redact: true
     field :hashed_password, :string, redact: true
     field :confirmed_at, :naive_datetime
@@ -37,7 +38,7 @@ defmodule Goolify.Account.User do
   """
   def registration_changeset(user, attrs, opts \\ []) do
     user
-    |> cast(attrs, [:email, :username, :password ])
+    |> cast(attrs, [:email, :username, :password])
     |> validate_email(opts)
     |> validate_username(opts)
     |> validate_password(opts)
@@ -64,12 +65,12 @@ defmodule Goolify.Account.User do
 
   defp validate_username(changeset, opts) do
     changeset
-    |> validate_required([:password])
+    |> validate_required([:username])
     |> validate_length(:username, min: 4, max: 9000)
     |> maybe_validate_unique_username(opts)
   end
 
-  defp maybe_hash_password(changeset, opts) do
+  def maybe_hash_password(changeset, opts) do
     hash_password? = Keyword.get(opts, :hash_password, true)
     password = get_change(changeset, :password)
 

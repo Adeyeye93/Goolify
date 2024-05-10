@@ -6,7 +6,6 @@
 
 # General application configuration
 import Config
-
 config :goolify,
   ecto_repos: [Goolify.Repo],
   generators: [timestamp_type: :utc_datetime]
@@ -29,17 +28,10 @@ config :goolify, GoolifyWeb.Endpoint,
 #
 # For production it's recommended to configure a different adapter
 # at the `config/runtime.exs`.
+
+# Configure Swoosh to use SendGrid adapter with Finch API cli
 config :goolify, Goolify.Mailer,
-  adapter: Swoosh.Adapters.SMTP,
-  relay: "smtp-relay.gmail.com",
-  username: "adeyeyeseyi2@gmail.com",
-  password: "odbb uxoz tnvy jgnz",
-  ssl: true,
-  tls: :always,
-  auth: :always,
-  port: 465,
-  retries: 2,
-  no_mx_lookups: false
+  adapter: Swoosh.Adapters.Gmail
 
 # Configure esbuild (the version is required)
 config :esbuild,

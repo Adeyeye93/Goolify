@@ -45,7 +45,6 @@ defmodule GoolifyWeb.UserResetPasswordLive do
       case socket.assigns do
         %{user: user} ->
           Account.change_user_password(user)
-
         _ ->
           %{}
       end

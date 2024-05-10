@@ -44,7 +44,7 @@ defmodule Goolify.MixProject do
       {:phoenix_live_dashboard, "~> 0.8.2"},
       {:esbuild, "~> 0.8", runtime: Mix.env() == :dev},
       {:tailwind, "~> 0.2.0", runtime: Mix.env() == :dev},
-      {:swoosh, "~> 1.3"},
+      {:swoosh, "~> 1.16"},
       {:finch, "~> 0.13"},
       {:telemetry_metrics, "~> 0.6"},
       {:telemetry_poller, "~> 1.0"},
@@ -52,7 +52,12 @@ defmodule Goolify.MixProject do
       {:jason, "~> 1.2"},
       {:dns_cluster, "~> 0.1.1"},
       {:plug_cowboy, "~> 2.5"},
-      {:gen_smtp, "~> 1.1"}
+      {:gen_smtp, "~> 1.2.0"},
+      {:mua, "~> 0.1.0"},
+      {:mail, "~> 0.3.0"},
+      {:castore, "~> 1.0"},
+      {:hackney, "~> 1.18.0"}
+
     ]
   end
 

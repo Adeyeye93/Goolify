@@ -25,7 +25,7 @@ defmodule GoolifyWeb.UserRegistrationLive do
             phx-submit="save"
             phx-change="validate"
             phx-trigger-action={@trigger_submit}
-            action={~p"/users/log_in?_action=registered"}
+            action={~p"/users/log_in?_action=verify_email"}
             method="post"
           >
             <.error :if={@check_errors}>
@@ -45,8 +45,7 @@ defmodule GoolifyWeb.UserRegistrationLive do
               </.button>
               <.link
                 navigate={~p"/users/reset_password"}
-                class="font-semibold self-end text-brand font-primary"
-              >
+                class="font-semibold self-end text-brand font-primary">
                 Forgot password?
               </.link>
             </:actions>
@@ -67,9 +66,6 @@ defmodule GoolifyWeb.UserRegistrationLive do
                 type="button"
               >
               </.goolifyButton>
-              <%!-- <.goolifyButton ids={[%{name: "linkedin-auth", href: "#"}]} type="button">
-                Linkedin
-              </.goolifyButton> --%>
             </div>
             <div class="w-full text-gray-400 font-normal self-start font-primary">
               Already have an account?
@@ -97,6 +93,7 @@ defmodule GoolifyWeb.UserRegistrationLive do
     socket =
       socket
       |> assign(trigger_submit: false, check_errors: false)
+      |> assign(page_title: "Sign-up")
       |> assign_form(changeset)
 
     {:ok, socket, temporary_assigns: [form: nil]}

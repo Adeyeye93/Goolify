@@ -1,6 +1,7 @@
 defmodule GoolifyWeb.UserConfirmationLive do
   use GoolifyWeb, :live_view
 
+
   alias Goolify.Account
 
   def render(%{live_action: :edit} = assigns) do
@@ -17,7 +18,7 @@ defmodule GoolifyWeb.UserConfirmationLive do
 
       <p class="text-center mt-4">
         <.link href={~p"/users/register"}>Register</.link>
-        | <.link href={~p"/users/log_in"}>Log in</.link>
+         <.link href={~p"/users/log_in"}>Log in</.link>
       </p>
     </div>
     """

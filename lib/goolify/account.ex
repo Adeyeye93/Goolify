@@ -6,7 +6,7 @@ defmodule Goolify.Account do
   import Ecto.Query, warn: false
   alias Goolify.Repo
 
-  alias Goolify.Account.{User, UserToken, UserNotifier}
+  alias Goolify.Account.{User, UserToken, UserNotifier, SecondFactor}
 
   ## Database getters
 
@@ -80,6 +80,12 @@ defmodule Goolify.Account do
     |> Repo.insert()
   end
 
+
+  def save_security_question(attr) do
+    %SecondFactor{}
+    |> SecondFactor.security_question_changeset(attr)
+    |> Repo.insert()
+  end
   @doc """
   Returns an `%Ecto.Changeset{}` for tracking user changes.
 
@@ -264,8 +270,10 @@ defmodule Goolify.Account do
       {encoded_token, user_token} = UserToken.build_email_token(user, "confirm")
       Repo.insert!(user_token)
       UserNotifier.deliver_confirmation_instructions(user, confirmation_url_fun.(encoded_token))
+
     end
   end
+
 
   @doc """
   Confirms a user by the given token.

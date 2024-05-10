@@ -56,6 +56,14 @@ defmodule GoolifyWeb.Router do
       live "/users/log_in", UserLoginLive, :new
       live "/users/reset_password", UserForgotPasswordLive, :new
       live "/users/reset_password/:token", UserResetPasswordLive, :edit
+
+      live "/animation", AnimationLive.Index, :index
+      live "/animation/new", AnimationLive.Index, :new
+      live "/animation/:id/edit", AnimationLive.Index, :edit
+
+      live "/animation/:id", AnimationLive.Show, :show
+      live "/animation/:id/show/edit", AnimationLive.Show, :edit
+
     end
 
     post "/users/log_in", UserSessionController, :create
@@ -68,6 +76,9 @@ defmodule GoolifyWeb.Router do
       on_mount: [{GoolifyWeb.UserAuth, :ensure_authenticated}] do
       live "/users/settings", UserSettingsLive, :edit
       live "/users/settings/confirm_email/:token", UserSettingsLive, :confirm_email
+      live "/user/settings/additional_security", SecondFactorAuthLive, :add_security
+      live "/user/settings/additional_security/security_questions", SecondFactorAuthLive, :security_questions
+      live "/user/settings/additional_security/security_passcode", SecondFactorAuthLive, :pass_code
     end
   end
 
@@ -80,6 +91,8 @@ defmodule GoolifyWeb.Router do
       on_mount: [{GoolifyWeb.UserAuth, :mount_current_user}] do
       live "/users/confirm/:token", UserConfirmationLive, :edit
       live "/users/confirm", UserConfirmationInstructionsLive, :new
+      live "/users/email/sent", Random.ResendEmail
+
     end
   end
 end

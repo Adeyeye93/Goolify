@@ -39,3 +39,8 @@ liveSocket.connect()
 // >> liveSocket.disableLatencySim()
 window.liveSocket = liveSocket
 
+let resendButton = document.getElementById("resend")
+
+window.addEventListener("phx:enable_resend", (e) =>
+  document.getElementById(e.detail.id).removeAttribute("disabled")
+);
